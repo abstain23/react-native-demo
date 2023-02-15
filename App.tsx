@@ -1,42 +1,19 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import createMyNavigator from './custom-tabs';
+import HomeScreen from './pages/HomeScreen';
+import WorkersScreen from './pages/WorkersScreen';
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 
-import {
-  SafeAreaView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const My = createMyNavigator();
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#222' : '#F3F3F3',
-  };
-
+function App() {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <View>
-        <Text>hello world</Text>
-        <Text>hello world</Text>
-        <Text>hello world</Text>
-        <Text>hello world</Text>
-        <Text>hello world</Text>
-        <Text>hello world</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <My.Navigator tabBarStyle={{}} contentStyle={{}}>
+        <My.Screen name="Home" component={HomeScreen} />
+        <My.Screen name="Worker" component={WorkersScreen} />
+      </My.Navigator>
+    </NavigationContainer>
   );
 }
 
