@@ -10,11 +10,21 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName="Worker"
         screenOptions={{
           headerShown: false,
         }}>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Worker" component={WorkersScreen} />
+        <Stack.Screen
+          name="Worker"
+          component={WorkersScreen}
+          options={
+            {
+              // statusBarHidden: true,
+              // statusBarTranslucent: true,
+            }
+          }
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -70,41 +70,47 @@ function TabNavigator({
       screenOptions,
       initialRouteName,
     });
+  console.log('state.routeNames', state.routeNames);
 
   return (
     <NavigationContent>
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={[{width: 80, flexGrow: 0, flexShrink: 0}, tabBarStyle]}>
-          {state.routes.map((route, index) => (
-            <TouchableOpacity
-              key={route.key}
-              onPress={() => {
-                if (navigation.getState().index === index) {
-                  return;
-                }
-                const event = navigation.emit({
-                  type: 'tabPress',
-                  target: route.key,
-                  canPreventDefault: true,
-                  data: {
-                    isAlreadyFocused:
-                      route.key === state.routes[state.index].key,
-                  },
-                });
-
-                if (!event.defaultPrevented) {
-                  navigation.dispatch({
-                    ...CommonActions.navigate({name: route.name, merge: true}),
-                    target: state.key,
+          {state.routes
+            .filter(route => !route.name.startsWith('_'))
+            .map((route, index) => (
+              <TouchableOpacity
+                key={route.key}
+                onPress={() => {
+                  if (navigation.getState().index === index) {
+                    return;
+                  }
+                  const event = navigation.emit({
+                    type: 'tabPress',
+                    target: route.key,
+                    canPreventDefault: true,
+                    data: {
+                      isAlreadyFocused:
+                        route.key === state.routes[state.index].key,
+                    },
                   });
-                }
-              }}
-              style={{flex: 1}}>
-              <View style={{backgroundColor: 'red'}}>
-                <Text>tab-{route.name}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+
+                  if (!event.defaultPrevented) {
+                    navigation.dispatch({
+                      ...CommonActions.navigate({
+                        name: route.name,
+                        merge: true,
+                      }),
+                      target: state.key,
+                    });
+                  }
+                }}
+                style={{flex: 1}}>
+                <View style={{backgroundColor: 'red'}}>
+                  <Text>tab-{route.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
         </View>
         <View style={[{flex: 1}, contentStyle]}>
           {state.routes.map((route, i) => {
