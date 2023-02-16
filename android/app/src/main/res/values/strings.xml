@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DrLauncher</string>
+    <string name="app_debug_name">DrLauncherDev</string>
 </resources>
